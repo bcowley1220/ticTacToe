@@ -1,0 +1,28 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#wrapper {
+  height: 75%;
+  width: 50%;
+  border: solid 1px black;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.box {
+  border: solid 1px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
