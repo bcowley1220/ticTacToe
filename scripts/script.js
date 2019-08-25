@@ -9,6 +9,8 @@ wrapper.addEventListener("click", wrapperClickHandler);
 // ! Variables
 let playerOne = "X";
 let playerOneMoves = [];
+let playerOneScore = 0;
+let playerTwoScore = 0;
 let playerTwo = "O";
 let playerTwoMoves = [];
 let playerOneTurnCount = 0;
@@ -31,22 +33,28 @@ let winConditions = [
   [1, 5, 9],
   [9, 5, 1]
 ];
-function whoWon(winConditions, playerOneMoves) {
+// function whoWon(winConditions, playerOneMoves) {
+//   for (let i = 0; i < winConditions.length; i++) {
+//     if (i === playerOneMoves) {
+//       console.log("playerone wins");
+//     } else {
+//       console.log("not yet");
+//     }
+//   }
+//   console.log("whoWon is working");
+// }
+
+function whoWon(winConditions, array, player, playerScore) {
+  console.log(winConditions[0]);
+  // console.log(array);
   for (let i = 0; i < winConditions.length; i++) {
-    if (i === playerOneMoves) {
-      console.log("playerone wins");
-    } else {
-      console.log("not yet");
+    if (JSON.stringify(winConditions[i]) === JSON.stringify(array)) {
+      console.log(`${player} wins!`);
+      console.log(`${player} score: ${playerScore}`);
+      playerScore = playerScore + 1;
     }
   }
-  console.log("whoWon is working");
 }
-
-// winConditions.forEach(function(win) {
-//   if (win.value === playerOneMoves) {
-//     console.log("player one wins");
-//   }
-// });
 
 // ! Click Handlers
 function wrapperClickHandler(event) {
@@ -58,12 +66,22 @@ function wrapperClickHandler(event) {
     playerOneTurnCount++;
     playerOneMoves.push(parseInt(event.target.id, 10));
     console.log(`Player One Moves: ${playerOneMoves}`);
-    whoWon(winConditions, playerOneMoves);
+    whoWon(winConditions, playerOneMoves, playerOne, playerOneScore);
+    // console.log(playerOneScore);
   } else {
     event.target.innerHTML = playerTwo;
     console.log(`we are pushing ${cell} into playerTwoMoves`);
     playerTwoMoves.push(parseInt(event.target.id, 10));
     console.log(`Player Two Moves: ${playerTwoMoves}`);
     playerTwoTurnCount++;
+    whoWon(winConditions, playerTwoMoves, playerTwoScore);
+    console.log(playerTwoScore);
   }
 }
+
+// while (true) {
+//   wrapperClickHandler();
+//   if (false) {
+//     console.log("would you like to play again?");
+//   }
+// }
