@@ -1,32 +1,5 @@
 "use strict";
 
-// ! Click Handlers
-function wrapperClickHandler(event) {
-  console.log(event.target.id);
-  let cell = event.target.id;
-  if (playerOneTurnCount <= playerTwoTurnCount) {
-    event.target.innerHTML = playerOne;
-    // let cell = event.target.id;
-    console.log(`we are pushing ${cell} into playerOneMoves`);
-    playerOneTurnCount++;
-    console.log(playerOneTurnCount);
-    playerOneMoves.push(parseInt(event.target.id, 10));
-    console.log(`Player One Moves: ${playerOneMoves}`);
-    winConditions.forEach(function(win) {
-      if (win === playerOneMoves) {
-        console.log("player one wins");
-      }
-    });
-  } else {
-    event.target.innerHTML = playerTwo;
-    console.log(`we are pushing ${cell} into playerTwoMoves`);
-    playerTwoMoves.push(parseInt(event.target.id, 10));
-    console.log(`Player Two Moves: ${playerTwoMoves}`);
-    playerTwoTurnCount++;
-    console.log(playerTwoTurnCount);
-  }
-}
-
 //! Query Selectors
 let wrapper = document.querySelector("#wrapper");
 
@@ -58,11 +31,39 @@ let winConditions = [
   [1, 5, 9],
   [9, 5, 1]
 ];
+function whoWon(winConditions, playerOneMoves) {
+  for (let i = 0; i < winConditions.length; i++) {
+    if (i === playerOneMoves) {
+      console.log("playerone wins");
+    } else {
+      console.log("not yet");
+    }
+  }
+  console.log("whoWon is working");
+}
 
-// function whoWins() {
-//   for (let win of winConditions) {
-//     if (playerOneMoves || playerTwoMoves === win) {
-//       console.log("Game is over.");
-//     }
+// winConditions.forEach(function(win) {
+//   if (win.value === playerOneMoves) {
+//     console.log("player one wins");
 //   }
-// }
+// });
+
+// ! Click Handlers
+function wrapperClickHandler(event) {
+  let cell = event.target.id;
+
+  if (playerOneTurnCount <= playerTwoTurnCount) {
+    event.target.innerHTML = playerOne;
+    console.log(`we are pushing ${cell} into playerOneMoves`);
+    playerOneTurnCount++;
+    playerOneMoves.push(parseInt(event.target.id, 10));
+    console.log(`Player One Moves: ${playerOneMoves}`);
+    whoWon(winConditions, playerOneMoves);
+  } else {
+    event.target.innerHTML = playerTwo;
+    console.log(`we are pushing ${cell} into playerTwoMoves`);
+    playerTwoMoves.push(parseInt(event.target.id, 10));
+    console.log(`Player Two Moves: ${playerTwoMoves}`);
+    playerTwoTurnCount++;
+  }
+}

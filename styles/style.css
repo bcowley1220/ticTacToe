@@ -14,15 +14,17 @@ body {
 }
 #wrapper {
   height: 75%;
-  width: 50%;
-  border: solid 1px black;
+  width: 75%;
+  /* border: solid 1px black; */
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 0.5rem;
 }
 .box {
   border: solid 1px black;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 15px;
 }
