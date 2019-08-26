@@ -2,7 +2,8 @@
 
 //! Query Selectors
 let wrapper = document.querySelector("#wrapper");
-
+let p1TC = document.querySelector("#p1TC");
+let p2TC = document.querySelector("#p2TC");
 // ! Event Listeners
 wrapper.addEventListener("click", wrapperClickHandler);
 
@@ -33,16 +34,6 @@ let winConditions = [
   [1, 5, 9],
   [9, 5, 1]
 ];
-// function whoWon(winConditions, playerOneMoves) {
-//   for (let i = 0; i < winConditions.length; i++) {
-//     if (i === playerOneMoves) {
-//       console.log("playerone wins");
-//     } else {
-//       console.log("not yet");
-//     }
-//   }
-//   console.log("whoWon is working");
-// }
 
 function whoWon(winConditions, array, player, playerScore) {
   console.log(winConditions[0]);
@@ -50,38 +41,31 @@ function whoWon(winConditions, array, player, playerScore) {
   for (let i = 0; i < winConditions.length; i++) {
     if (JSON.stringify(winConditions[i]) === JSON.stringify(array)) {
       console.log(`${player} wins!`);
+      // console.log(`${player} score: ${playerScore}`);
+      playerScore++;
       console.log(`${player} score: ${playerScore}`);
-      playerScore = playerScore + 1;
+      return playerScore;
     }
+  }
+}
+
+function playerTurns() {
+  if (playerOneTurnCount <= playerTwoTurnCount) {
+    event.target.innerHTML = playerOne;
+    playerOneTurnCount++;
+    p1TC.innerHTML = `PlayerOne Turns: ${playerOneTurnCount}`;
+    playerOneMoves.push(parseInt(event.target.id, 10));
+    whoWon(winConditions, playerOneMoves, playerOne, playerOneScore);
+  } else {
+    event.target.innerHTML = playerTwo;
+    playerTwoMoves.push(parseInt(event.target.id, 10));
+    playerTwoTurnCount++;
+    p2TC.innerHTML = `PlayerTwo Turns: ${playerTwoTurnCount}`;
+    whoWon(winConditions, playerTwoMoves, playerTwo, playerTwoScore);
   }
 }
 
 // ! Click Handlers
 function wrapperClickHandler(event) {
-  let cell = event.target.id;
-
-  if (playerOneTurnCount <= playerTwoTurnCount) {
-    event.target.innerHTML = playerOne;
-    console.log(`we are pushing ${cell} into playerOneMoves`);
-    playerOneTurnCount++;
-    playerOneMoves.push(parseInt(event.target.id, 10));
-    console.log(`Player One Moves: ${playerOneMoves}`);
-    whoWon(winConditions, playerOneMoves, playerOne, playerOneScore);
-    // console.log(playerOneScore);
-  } else {
-    event.target.innerHTML = playerTwo;
-    console.log(`we are pushing ${cell} into playerTwoMoves`);
-    playerTwoMoves.push(parseInt(event.target.id, 10));
-    console.log(`Player Two Moves: ${playerTwoMoves}`);
-    playerTwoTurnCount++;
-    whoWon(winConditions, playerTwoMoves, playerTwoScore);
-    console.log(playerTwoScore);
-  }
+  playerTurns(event)''
 }
-
-// while (true) {
-//   wrapperClickHandler();
-//   if (false) {
-//     console.log("would you like to play again?");
-//   }
-// }
